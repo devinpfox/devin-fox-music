@@ -28,7 +28,7 @@ const ArtistHeader = () => {
                 >
                   <div className="relative w-full h-full rounded-3xl overflow-hidden">
                     <Image
-                      src="/devin-fox-artist.jpg"
+                      src="/devin-fox-artist-square.jpg"
                       alt="Devin Fox"
                       width={192}
                       height={192}

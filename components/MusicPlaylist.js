@@ -129,6 +129,11 @@ const MusicPlaylist = ({ onPlaybackChange }) => {
       }
     });
 
+    // Reset currentTime if track has ended
+    if (audio.ended || audio.currentTime >= audio.duration) {
+      audio.currentTime = 0;
+    }
+
     // Play the selected track
     audio.play();
     setCurrentTrack(trackId);
@@ -138,14 +143,6 @@ const MusicPlaylist = ({ onPlaybackChange }) => {
     if (audio.duration) {
       setDuration(audio.duration);
     }
-
-    // Handle track ending
-    audio.onended = () => {
-      setIsPlaying(false);
-      setCurrentTrack(null);
-      setCurrentTime(0);
-      setShowLyrics(false);
-    };
   };
 
   // Fetch lyrics when track changes
@@ -267,6 +264,14 @@ const MusicPlaylist = ({ onPlaybackChange }) => {
                   onLoadedMetadata={(e) => {
                     if (currentTrack === track.id) {
                       setDuration(e.target.duration);
+                    }
+                  }}
+                  onEnded={() => {
+                    if (currentTrack === track.id) {
+                      setIsPlaying(false);
+                      setCurrentTrack(null);
+                      setCurrentTime(0);
+                      setShowLyrics(false);
                     }
                   }}
                 />

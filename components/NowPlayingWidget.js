@@ -214,7 +214,7 @@ const NowPlayingWidget = ({ isPlaying, trackTitle }) => {
             >
               <div className="relative w-full h-full rounded-xl overflow-hidden">
                 <Image
-                  src="/devin-fox-artist.jpg"
+                  src="/devin-fox-artist-square.jpg"
                   alt="Now Playing"
                   width={56}
                   height={56}
