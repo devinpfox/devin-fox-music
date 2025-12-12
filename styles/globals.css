@@ -383,6 +383,18 @@ html {
   white-space: nowrap;
 }
 
+/* Fade in animation for tooltip */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Equalizer bars animation - WMP style */
 @keyframes equalizerBounce {
   0%, 100% { height: 20%; }

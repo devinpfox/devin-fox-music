@@ -5,7 +5,9 @@ const NowPlayingWidget = ({ isPlaying, trackTitle }) => {
   const [position, setPosition] = useState({ x: null, y: null });
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [showTooltip, setShowTooltip] = useState(false);
   const widgetRef = useRef(null);
+  const hasShownTooltipRef = useRef(false);
 
   // Initialize position to bottom center on first render
   useEffect(() => {
@@ -18,8 +20,26 @@ const NowPlayingWidget = ({ isPlaying, trackTitle }) => {
     }
   }, [position.x]);
 
+  // Show tooltip on first play
+  useEffect(() => {
+    if (isPlaying && !hasShownTooltipRef.current) {
+      hasShownTooltipRef.current = true;
+      setShowTooltip(true);
+
+      // Hide after 7 seconds
+      const timer = setTimeout(() => {
+        setShowTooltip(false);
+      }, 7000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isPlaying]);
+
   const handleMouseDown = (e) => {
     if (!widgetRef.current) return;
+
+    // Hide tooltip when dragging starts
+    setShowTooltip(false);
 
     const rect = widgetRef.current.getBoundingClientRect();
     setDragOffset({
@@ -53,6 +73,9 @@ const NowPlayingWidget = ({ isPlaying, trackTitle }) => {
   // Touch event handlers for mobile
   const handleTouchStart = (e) => {
     if (!widgetRef.current) return;
+
+    // Hide tooltip when dragging starts
+    setShowTooltip(false);
 
     const touch = e.touches[0];
     const rect = widgetRef.current.getBoundingClientRect();
@@ -104,20 +127,61 @@ const NowPlayingWidget = ({ isPlaying, trackTitle }) => {
   if (!isPlaying || !trackTitle) return null;
 
   return (
-    <div
-      ref={widgetRef}
-      className="fixed z-50 w-full max-w-3xl px-4"
-      style={{
-        left: position.x !== null ? `${position.x}px` : '50%',
-        top: position.y !== null ? `${position.y}px` : 'auto',
-        bottom: position.y === null ? '32px' : 'auto',
-        transform: position.x === null ? 'translateX(-50%)' : 'none',
-        cursor: isDragging ? 'grabbing' : 'grab',
-        transition: isDragging ? 'none' : 'box-shadow 0.3s ease'
-      }}
-    >
-      {/* WMP Mini Player Chrome Rim */}
+    <>
+      {/* Tooltip - "move me :)" */}
+      {showTooltip && (
+        <div
+          className="fixed z-50 pointer-events-none"
+          style={{
+            left: position.x !== null ? `${position.x + 20}px` : 'calc(50% + 20px)',
+            top: position.y !== null ? `${position.y - 60}px` : 'auto',
+            bottom: position.y === null ? 'calc(32px + 100px)' : 'auto',
+            transform: position.x === null ? 'translateX(-50%)' : 'none',
+            animation: 'fadeIn 0.3s ease-out'
+          }}
+        >
+          <div className="relative">
+            <div
+              className="px-4 py-2 rounded-full text-sm font-medium"
+              style={{
+                background: 'linear-gradient(135deg, rgba(0, 200, 255, 0.9), rgba(150, 100, 255, 0.9))',
+                boxShadow: '0 4px 12px rgba(0, 200, 255, 0.4), 0 0 20px rgba(0, 200, 255, 0.2)',
+                color: 'white',
+                backdropFilter: 'blur(10px)'
+              }}
+            >
+              move me :)
+            </div>
+            {/* Arrow pointing down */}
+            <div
+              className="absolute left-1/2 transform -translate-x-1/2"
+              style={{
+                top: '100%',
+                width: 0,
+                height: 0,
+                borderLeft: '8px solid transparent',
+                borderRight: '8px solid transparent',
+                borderTop: '8px solid rgba(0, 200, 255, 0.9)'
+              }}
+            />
+          </div>
+        </div>
+      )}
+
       <div
+        ref={widgetRef}
+        className="fixed z-50 w-full max-w-3xl px-4"
+        style={{
+          left: position.x !== null ? `${position.x}px` : '50%',
+          top: position.y !== null ? `${position.y}px` : 'auto',
+          bottom: position.y === null ? '32px' : 'auto',
+          transform: position.x === null ? 'translateX(-50%)' : 'none',
+          cursor: isDragging ? 'grabbing' : 'grab',
+          transition: isDragging ? 'none' : 'box-shadow 0.3s ease'
+        }}
+      >
+        {/* WMP Mini Player Chrome Rim */}
+        <div
         className="neon-card-rounded"
         style={{ padding: '2px' }}
         onMouseDown={handleMouseDown}
@@ -233,7 +297,8 @@ const NowPlayingWidget = ({ isPlaying, trackTitle }) => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

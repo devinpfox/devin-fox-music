@@ -26,7 +26,7 @@ const tracks = [
   },
 ];
 
-const MusicPlaylist = () => {
+const MusicPlaylist = ({ onPlaybackChange }) => {
   const [currentTrack, setCurrentTrack] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -39,6 +39,17 @@ const MusicPlaylist = () => {
   const audioRefs = useRef({});
   const updateIntervalRef = useRef(null);
   const progressBarRef = useRef(null);
+
+  // Notify parent of playback changes
+  useEffect(() => {
+    if (onPlaybackChange) {
+      onPlaybackChange({
+        audioElement: currentTrack ? audioRefs.current[currentTrack] : null,
+        isPlaying,
+        currentTrack
+      });
+    }
+  }, [currentTrack, isPlaying, onPlaybackChange]);
 
   // Format time in MM:SS
   const formatTime = (seconds) => {
