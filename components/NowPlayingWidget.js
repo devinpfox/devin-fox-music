@@ -218,7 +218,10 @@ const NowPlayingWidget = ({ isPlaying, trackTitle }) => {
                   alt="Now Playing"
                   width={56}
                   height={56}
-                  className="rounded-xl object-cover w-full h-full"
+                  className="rounded-xl object-cover object-top w-full h-full"
+                  style={{
+                    filter: 'saturate(1.15)'
+                  }}
                 />
               </div>
             </div>

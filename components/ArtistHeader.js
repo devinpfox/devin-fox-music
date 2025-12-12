@@ -32,7 +32,10 @@ const ArtistHeader = () => {
                       alt="Devin Fox"
                       width={192}
                       height={192}
-                      className="rounded-3xl object-cover w-full h-full"
+                      className="rounded-3xl object-cover object-top w-full h-full"
+                      style={{
+                        filter: 'saturate(1.15)'
+                      }}
                     />
                   </div>
                 </div>
@@ -118,6 +121,9 @@ const ArtistHeader = () => {
                   width={800}
                   height={1000}
                   className="rounded-2xl object-cover"
+                  style={{
+                    filter: 'saturate(1.15)'
+                  }}
                 />
               </div>
             </div>
