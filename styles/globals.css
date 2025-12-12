@@ -1,0 +1,686 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Premium Deep Background with Subtle Gradient Movement */
+.neon-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg,
+    #0f0820 0%,
+    #1a0f35 25%,
+    #2d1555 50%,
+    #1a0f35 75%,
+    #0f0820 100%
+  );
+  background-size: 400% 400%;
+  animation: neonMove 25s ease infinite;
+  z-index: 0;
+}
+
+/* WMP Energy Bliss inspired light streaks */
+.neon-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(60deg, transparent 20%, rgba(0, 200, 255, 0.25) 50%, transparent 80%),
+    linear-gradient(120deg, transparent 20%, rgba(255, 0, 200, 0.25) 50%, transparent 80%),
+    radial-gradient(ellipse at bottom, rgba(255, 0, 200, 0.3) 0%, transparent 60%);
+  background-size: 200% 200%, 200% 200%, 100% 100%;
+  animation: streaks 15s ease infinite;
+}
+
+/* WMP Visualizer: Soft radial cyan/magenta glow */
+.neon-background::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  height: 80%;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(0, 200, 255, 0.15), transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(255, 0, 200, 0.15), transparent 50%);
+  animation: pulseGlow 8s ease-in-out infinite;
+  filter: blur(60px);
+}
+
+/* Refined Ambient WMP-Inspired Light Effects */
+.light-waves {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.08;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.light-waves::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background:
+    radial-gradient(ellipse 900px 450px at 25% 35%,
+      rgba(100, 150, 255, 0.12) 0%,
+      transparent 55%
+    ),
+    radial-gradient(ellipse 700px 350px at 75% 65%,
+      rgba(150, 180, 255, 0.1) 0%,
+      transparent 55%
+    ),
+    radial-gradient(ellipse 800px 400px at 50% 85%,
+      rgba(180, 160, 255, 0.08) 0%,
+      transparent 55%
+    );
+  animation: energyBlissDrift 30s ease-in-out infinite;
+}
+
+.light-waves::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background:
+    repeating-linear-gradient(
+      60deg,
+      transparent,
+      transparent 100px,
+      rgba(100, 150, 255, 0.02) 100px,
+      rgba(100, 150, 255, 0.02) 101px
+    ),
+    repeating-linear-gradient(
+      -60deg,
+      transparent,
+      transparent 100px,
+      rgba(150, 180, 255, 0.02) 100px,
+      rgba(150, 180, 255, 0.02) 101px
+    );
+  animation: waveMove 40s linear infinite;
+}
+
+@keyframes energyBlissDrift {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  33% {
+    transform: translate(-3%, 4%) rotate(1.5deg) scale(1.03);
+  }
+  66% {
+    transform: translate(4%, -3%) rotate(-1.5deg) scale(0.99);
+  }
+}
+
+@keyframes neonMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes streaks {
+  0% { background-position: 0% 0%, 100% 100%; }
+  50% { background-position: 100% 100%, 0% 0%; }
+  100% { background-position: 0% 0%, 100% 100%; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes waveMove {
+  0% { transform: translateY(0) translateX(0); }
+  100% { transform: translateY(-10px) translateX(-10px); }
+}
+
+body {
+  background-color: #0a0515;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Subtle starry background effect */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(2px 2px at 60px 70px, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 50px 50px, rgba(0, 200, 255, 0.4), transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(255, 0, 200, 0.3), transparent),
+    radial-gradient(2px 2px at 90px 10px, rgba(255, 255, 255, 0.3), transparent);
+  background-size: 200px 200px;
+  background-repeat: repeat;
+  opacity: 0.3;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Premium scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg,
+    rgba(100, 150, 255, 0.4),
+    rgba(150, 180, 255, 0.3)
+  );
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg,
+    rgba(100, 150, 255, 0.6),
+    rgba(150, 180, 255, 0.5)
+  );
+}
+
+/* WMP-Inspired Glassmorphic Panel - Metallic Blue Edges */
+.wmp-glass-panel {
+  position: relative;
+  background: rgba(30, 30, 60, 0.4);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 8px 32px 0 rgba(0, 0, 0, 0.37),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15),
+    0 0 20px rgba(0, 200, 255, 0.15);
+}
+
+.wmp-glass-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  padding: 1px;
+  background: linear-gradient(135deg,
+    rgba(0, 200, 255, 0.3) 0%,
+    rgba(100, 150, 255, 0.2) 25%,
+    transparent 50%,
+    rgba(0, 200, 255, 0.2) 75%,
+    rgba(0, 200, 255, 0.3) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* WMP-Inspired Glossy Button - Early 2000s Media Player Style */
+.wmp-button {
+  position: relative;
+  background: linear-gradient(135deg, rgba(80, 120, 200, 0.9), rgba(40, 80, 160, 0.9));
+  border-radius: 50%;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.wmp-button::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 15%;
+  right: 40%;
+  height: 30%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), transparent);
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+.wmp-button:hover {
+  transform: scale(1.05);
+  box-shadow:
+    0 0 15px rgba(0, 200, 255, 0.6),
+    0 2px 8px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.wmp-button:active {
+  transform: scale(0.95);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.5),
+    0 0 10px rgba(0, 200, 255, 0.4);
+}
+
+/* Track hover effect - glass rise with spectrum glow */
+.track-item {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.track-item:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 20px rgba(0, 200, 255, 0.2),
+    0 8px 30px rgba(255, 0, 200, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.track-item:hover::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(0, 200, 255, 0.2) 20%,
+    rgba(255, 0, 200, 0.2) 50%,
+    rgba(0, 200, 255, 0.2) 80%,
+    transparent
+  );
+  animation: spectrumRipple 2s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes spectrumRipple {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Subtle WMP Equalizer Visualizer Aura Behind Portrait */
+.visualizer-aura {
+  position: absolute;
+  inset: -35px;
+  opacity: 0.12;
+  border-radius: inherit;
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.visualizer-aura::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 15px,
+      rgba(100, 150, 255, 0.5) 15px,
+      rgba(100, 150, 255, 0.5) 20px,
+      transparent 20px,
+      transparent 35px,
+      rgba(150, 180, 255, 0.4) 35px,
+      rgba(150, 180, 255, 0.4) 40px,
+      transparent 40px,
+      transparent 55px,
+      rgba(180, 160, 255, 0.45) 55px,
+      rgba(180, 160, 255, 0.45) 60px
+    );
+  animation: visualizerPulse 3s ease-in-out infinite;
+}
+
+@keyframes visualizerPulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scaleY(0.85);
+  }
+  33% {
+    opacity: 0.75;
+    transform: scaleY(1.15);
+  }
+  66% {
+    opacity: 0.6;
+    transform: scaleY(1);
+  }
+}
+
+/* Marquee scrolling text animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-text {
+  display: inline-block;
+  animation: marquee 15s linear infinite;
+  white-space: nowrap;
+}
+
+/* Equalizer bars animation - WMP style */
+@keyframes equalizerBounce {
+  0%, 100% { height: 20%; }
+  50% { height: 100%; }
+}
+
+.equalizer-bar {
+  animation: equalizerBounce 0.8s ease-in-out infinite;
+}
+
+.equalizer-bar:nth-child(1) { animation-delay: 0s; }
+.equalizer-bar:nth-child(2) { animation-delay: 0.1s; }
+.equalizer-bar:nth-child(3) { animation-delay: 0.2s; }
+.equalizer-bar:nth-child(4) { animation-delay: 0.3s; }
+.equalizer-bar:nth-child(5) { animation-delay: 0.4s; }
+
+/* Bold Neon Card Styling */
+.neon-card {
+  position: relative;
+  background: rgba(20, 10, 50, 0.6);
+  backdrop-filter: blur(20px);
+  border-radius: 32px;
+  border: 3px solid;
+  border-image: linear-gradient(135deg, #FF00C8, #00C8FF, #00FFFF, #FF00C8) 1;
+  box-shadow:
+    0 0 30px rgba(0, 200, 255, 0.6),
+    0 0 60px rgba(255, 0, 200, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+/* Premium Glassmorphic Card with Subtle WMP Chrome Accents */
+.neon-card-rounded {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border-radius: 28px;
+  padding: 1px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Refined gradient border - subtle WMP metallic influence */
+.neon-card-rounded::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  padding: 1px;
+  background: linear-gradient(135deg,
+    rgba(100, 150, 255, 0.4) 0%,
+    rgba(0, 200, 255, 0.3) 25%,
+    rgba(200, 150, 255, 0.25) 50%,
+    rgba(0, 180, 255, 0.3) 75%,
+    rgba(100, 150, 255, 0.4) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.6;
+}
+
+/* Subtle inner highlight - WMP chrome influence */
+.neon-card-rounded::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: 27px;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.02) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+.neon-card-rounded-inner {
+  position: relative;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 27px;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.1);
+}
+
+/* Premium Glassmorphic Track Item with Subtle WMP Touches */
+.neon-track {
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  border-radius: 48px;
+  padding: 1px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(0);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.25),
+    0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.neon-track::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 48px;
+  padding: 1px;
+  background: linear-gradient(135deg,
+    rgba(100, 150, 255, 0.35),
+    rgba(150, 180, 255, 0.25),
+    rgba(180, 160, 255, 0.25),
+    rgba(100, 150, 255, 0.35)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.5;
+}
+
+/* Hover: Premium float with refined glow */
+.neon-track:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(100, 150, 255, 0.15);
+}
+
+.neon-track:hover::before {
+  opacity: 0.8;
+  animation: subtleGlowPulse 3s ease-in-out infinite;
+}
+
+/* Subtle WMP equalizer bars on hover */
+.neon-track:hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 48px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 30px,
+      rgba(100, 150, 255, 0.04) 30px,
+      rgba(100, 150, 255, 0.04) 33px,
+      transparent 33px,
+      transparent 63px,
+      rgba(180, 160, 255, 0.04) 63px,
+      rgba(180, 160, 255, 0.04) 66px
+    );
+  opacity: 0;
+  animation: fadeInEq 0.6s ease-out forwards;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes subtleGlowPulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+@keyframes fadeInEq {
+  to { opacity: 1; }
+}
+
+.neon-track-inner {
+  position: relative;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.09) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  border-radius: 47px;
+  padding: 18px 28px;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.12),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.08);
+}
+
+/* Premium Glassmorphic Play Button with WMP Gloss */
+.neon-play-btn {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 1px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.25),
+    0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Refined border with subtle WMP metallic hint */
+.neon-play-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg,
+    rgba(100, 150, 255, 0.4),
+    rgba(150, 180, 255, 0.3),
+    rgba(100, 150, 255, 0.4)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.5;
+}
+
+.neon-play-btn:hover {
+  transform: scale(1.05);
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.3),
+    0 0 16px rgba(100, 150, 255, 0.2);
+}
+
+.neon-play-btn:hover::before {
+  opacity: 0.8;
+}
+
+.neon-play-btn-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  background: linear-gradient(135deg,
+    rgba(60, 100, 180, 0.6) 0%,
+    rgba(80, 120, 200, 0.5) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.25),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Subtle top gloss - WMP influence */
+.neon-play-btn-inner::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  right: 25%;
+  height: 20%;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0)
+  );
+  border-radius: 10px;
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+.neon-play-btn:active {
+  transform: scale(0.98);
+}
+
+.neon-play-btn:active .neon-play-btn-inner {
+  background: linear-gradient(135deg,
+    rgba(50, 90, 160, 0.7) 0%,
+    rgba(70, 110, 180, 0.6) 100%
+  );
+}
+
+/* Track Number Badge - Premium with WMP Hint */
+.track-number {
+  background: linear-gradient(135deg,
+    rgba(80, 120, 200, 0.35) 0%,
+    rgba(60, 100, 180, 0.3) 100%
+  );
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 1.05rem;
+  font-family: 'Segoe UI', -apple-system, sans-serif;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.2),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.15);
+}
