@@ -10,8 +10,8 @@ const ArtistHeader = () => {
       <header className="mb-8">
         <div className="neon-card-rounded">
           <div className="neon-card-rounded-inner p-6">
-            <div className="flex items-center gap-8">
-              {/* Artist Image - Left Side with Visualizer Aura */}
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              {/* Artist Image - Top on mobile, Left on desktop with Visualizer Aura */}
               <div className="relative flex-shrink-0">
                 {/* WMP Visualizer Aura */}
                 <div className="visualizer-aura"></div>
@@ -36,20 +36,30 @@ const ArtistHeader = () => {
                 </div>
               </div>
 
-              {/* Artist Info - Right Side */}
-              <div className="flex-1 text-center md:text-left">
-                <h1 className="text-5xl font-bold text-white tracking-wider uppercase mb-3"
-                  style={{
-                    textShadow: '0 2px 8px rgba(0, 0, 0, 0.4), 0 0 12px rgba(0, 200, 255, 0.3)'
-                  }}>
-                  DEVIN FOX
-                </h1>
-                <p className="text-lg text-gray-200 tracking-widest uppercase"
-                  style={{
-                    textShadow: '0 1px 4px rgba(0, 0, 0, 0.3)'
-                  }}>
-                  ARTIST / PRODUCER / SONGWRITER
-                </p>
+              {/* Artist Info - Below image on mobile (split), Right side on desktop */}
+              <div className="flex-1 w-full md:text-left">
+                {/* Mobile: Split layout */}
+                <div className="flex md:block w-full gap-4 justify-center">
+                  {/* Left half on mobile - Name */}
+                  <div className="flex-1 md:flex-none">
+                    <h1 className="text-3xl md:text-5xl font-bold text-white tracking-wider uppercase mb-3"
+                      style={{
+                        textShadow: '0 2px 8px rgba(0, 0, 0, 0.4), 0 0 12px rgba(0, 200, 255, 0.3)'
+                      }}>
+                      DEVIN FOX
+                    </h1>
+                  </div>
+
+                  {/* Right half on mobile - Titles */}
+                  <div className="flex-1 md:flex-none">
+                    <p className="text-sm md:text-lg text-gray-200 tracking-widest uppercase mb-3"
+                      style={{
+                        textShadow: '0 1px 4px rgba(0, 0, 0, 0.3)'
+                      }}>
+                      ARTIST / PRODUCER / SONGWRITER
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

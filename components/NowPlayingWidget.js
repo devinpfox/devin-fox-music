@@ -50,14 +50,54 @@ const NowPlayingWidget = ({ isPlaying, trackTitle }) => {
     setIsDragging(false);
   };
 
+  // Touch event handlers for mobile
+  const handleTouchStart = (e) => {
+    if (!widgetRef.current) return;
+
+    const touch = e.touches[0];
+    const rect = widgetRef.current.getBoundingClientRect();
+    setDragOffset({
+      x: touch.clientX - rect.left,
+      y: touch.clientY - rect.top
+    });
+    setIsDragging(true);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging || !widgetRef.current) return;
+
+    e.preventDefault(); // Prevent scrolling while dragging
+    const touch = e.touches[0];
+    const rect = widgetRef.current.getBoundingClientRect();
+    let newX = touch.clientX - dragOffset.x;
+    let newY = touch.clientY - dragOffset.y;
+
+    // Keep within viewport bounds
+    const maxX = window.innerWidth - rect.width;
+    const maxY = window.innerHeight - rect.height;
+
+    newX = Math.max(0, Math.min(newX, maxX));
+    newY = Math.max(0, Math.min(newY, maxY));
+
+    setPosition({ x: newX, y: newY });
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
+
   useEffect(() => {
     if (isDragging) {
       document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener('touchmove', handleTouchMove, { passive: false });
+      document.addEventListener('touchend', handleTouchEnd);
     }
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
     };
   }, [isDragging, dragOffset]);
 
@@ -81,6 +121,7 @@ const NowPlayingWidget = ({ isPlaying, trackTitle }) => {
         className="neon-card-rounded"
         style={{ padding: '2px' }}
         onMouseDown={handleMouseDown}
+        onTouchStart={handleTouchStart}
       >
         <div className="neon-card-rounded-inner px-6 py-4 relative"
           style={{
