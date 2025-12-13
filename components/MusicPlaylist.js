@@ -21,7 +21,7 @@ const tracks = [
     id: 3,
     title: "Ain't Bad",
     chorusFile: "/ain't-bad-chorus.mp3",
-    fullFile: '/aint-bad.mp3',
+    fullFile: "/ain't-bad.mp3",
     lyrics: '/aint-bad.txt'
   },
 ];
@@ -66,9 +66,13 @@ const MusicPlaylist = ({ onPlaybackChange }) => {
     const audio = audioRefs.current[currentTrack];
     if (!audio || !audio.duration) return;
 
+    // Ensure playback rate is always 1.0 (normal speed)
+    audio.playbackRate = 1.0;
+
     const rect = progressBarRef.current.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const percentage = Math.max(0, Math.min(1, clickX / rect.width));
+    const clickX = e.clientX || (e.touches && e.touches[0]?.clientX) || 0;
+    const clickXPosition = clickX - rect.left;
+    const percentage = Math.max(0, Math.min(1, clickXPosition / rect.width));
     const newTime = percentage * audio.duration;
 
     audio.currentTime = newTime;
@@ -77,6 +81,14 @@ const MusicPlaylist = ({ onPlaybackChange }) => {
 
   // Handle mouse down on progress bar
   const handleMouseDown = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+    handleSeek(e);
+  };
+
+  // Handle touch start on progress bar
+  const handleTouchStart = (e) => {
+    e.preventDefault();
     setIsDragging(true);
     handleSeek(e);
   };
@@ -88,24 +100,43 @@ const MusicPlaylist = ({ onPlaybackChange }) => {
     }
   };
 
+  // Handle touch move while dragging
+  const handleTouchMove = (e) => {
+    if (isDragging) {
+      e.preventDefault();
+      handleSeek(e);
+    }
+  };
+
   // Handle mouse up anywhere
   const handleMouseUp = () => {
     setIsDragging(false);
   };
 
-  // Add global mouse event listeners for dragging
+  // Handle touch end anywhere
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
+
+  // Add global mouse and touch event listeners for dragging
   useEffect(() => {
     if (isDragging) {
       document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener('touchmove', handleTouchMove, { passive: false });
+      document.addEventListener('touchend', handleTouchEnd);
     } else {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
     }
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
     };
   }, [isDragging]);
 
@@ -113,6 +144,9 @@ const MusicPlaylist = ({ onPlaybackChange }) => {
     const audio = audioRefs.current[trackId];
 
     if (!audio) return;
+
+    // Always ensure playback rate is normal (prevent chipmunk effect)
+    audio.playbackRate = 1.0;
 
     // If clicking on currently playing track, pause it
     if (currentTrack === trackId && isPlaying) {
@@ -129,13 +163,16 @@ const MusicPlaylist = ({ onPlaybackChange }) => {
       }
     });
 
-    // Reset currentTime if track has ended
-    if (audio.ended || audio.currentTime >= audio.duration) {
+    // Always reset to beginning when starting a track (not currently playing)
+    if (currentTrack !== trackId) {
       audio.currentTime = 0;
     }
 
     // Play the selected track
-    audio.play();
+    audio.play().catch(err => {
+      // Handle play error (common on mobile)
+      console.error('Play error:', err);
+    });
     setCurrentTrack(trackId);
     setIsPlaying(true);
 
@@ -262,8 +299,16 @@ const MusicPlaylist = ({ onPlaybackChange }) => {
                   ref={(el) => (audioRefs.current[track.id] = el)}
                   src={playingFullVersion[track.id] ? track.fullFile : track.chorusFile}
                   onLoadedMetadata={(e) => {
+                    // Lock playback rate to normal speed
+                    e.target.playbackRate = 1.0;
                     if (currentTrack === track.id) {
                       setDuration(e.target.duration);
+                    }
+                  }}
+                  onRateChange={(e) => {
+                    // Prevent any playback rate changes (fixes chipmunk effect)
+                    if (e.target.playbackRate !== 1.0) {
+                      e.target.playbackRate = 1.0;
                     }
                   }}
                   onEnded={() => {
@@ -288,6 +333,10 @@ const MusicPlaylist = ({ onPlaybackChange }) => {
                     onMouseDown={(e) => {
                       e.stopPropagation();
                       handleMouseDown(e);
+                    }}
+                    onTouchStart={(e) => {
+                      e.stopPropagation();
+                      handleTouchStart(e);
                     }}
                     onClick={(e) => {
                       e.stopPropagation();

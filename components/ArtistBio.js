@@ -22,21 +22,21 @@ const ArtistBio = () => {
         <div className="neon-card-rounded-inner p-8">
           <div className="text-base text-gray-100 leading-relaxed">
             <p className="mb-4">
-              Devin Fox is a songwriter and producer with a rare instinct for anthemic pop hooks, developed long before most artists find their voice. At just 15, he contributed to the platinum-selling J-Pop scene, earning a composer credit on "SO RIGHT" by J SOUL BROTHERS III from EXILE TRIBE, an early signal of his global pop sensibility.
+              Devin Fox is a highly disciplined songwriter, producer, and composer specializing in commercially precise Pop/Indie/R&B. He possesses a rare instinct for anthemic, global pop hooks and commercially precise melodies. As an early signal of his ability to deliver hit records, he contributed to the platinum-selling J-Pop scene, earning a composer credit on the platinum-selling J-Pop single "SO RIGHT" for J SOUL BROTHERS III from EXILE TRIBE at just 15 years old.
             </p>
 
             {isExpanded && (
               <>
                 <p className="mb-4">
-                  Following early success as a member of a major-label boyband, Fox stepped away from the spotlight to refine his craft and perspective. That time away shaped a sharper, more intentional artistic vision, one rooted in discipline, clarity, and creative control.
+                  Following early success as a member of a major-label boyband, Fox intentionally stepped away from the performance spotlight to dedicate his time to refining his production and writing craft. This period shaped a sharper, more intentional creative vision rooted in discipline, clarity, and complete creative control.
                 </p>
 
                 <p className="mb-4">
-                  Now re-emerging with a fully realized sound, Devin Fox blends the synth-driven pulse of 80s new wave with the emotional edge of alternative music and modern pop precision. His work balances nostalgia and immediacy, pairing sleek production with melodies built to last.
+                  Now re-emerging with a fully realized sound, Fox delivers sleek, sophisticated production across his Pop/Indie/R&B catalog. His work balances nostalgia and immediacy, pairing modern sonic quality with melodies built to last.
                 </p>
 
                 <p>
-                  Rather than a comeback, this chapter marks a clear artistic arrival. With his debut EP and lead single "Love Somebody," Devin Fox introduces a confident, contemporary identity, an artist focused not on revisiting the past, but on defining what comes next.
+                  This chapter marks a clear artistic pivot: Fox is focused on a publishing-first strategy, providing a fully realized, radio-ready song catalog to generate high-value cuts and sync opportunities for major artists and third-party projects.
                 </p>
               </>
             )}
